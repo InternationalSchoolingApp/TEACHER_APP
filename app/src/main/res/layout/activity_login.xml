@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:theme="@style/AppTheme"
+    tools:context=".Login">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/loginbg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <LinearLayout
+        android:background="@drawable/curve_corner_less"
+        android:backgroundTint="#efefef"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingTop="30dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:src="@drawable/bluelogo"
+            ></ImageView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:textSize="40sp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="1dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/username"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username"
+            android:transitionName="user_name"
+            app:boxBackgroundColor="@color/white"
+            app:boxCollapsedPaddingTop="5dp"
+            app:boxStrokeColor="@color/is_light_blue"
+            app:boxStrokeErrorColor="@color/design_default_color_error"
+            app:boxStrokeWidth="2dp"
+            app:helperTextTextColor="@color/design_default_color_error"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/username">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textSize="10sp"
+                android:singleLine="true"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            app:helperTextTextColor="@color/design_default_color_error"
+            android:includeFontPadding="false"
+            app:boxBackgroundColor="@color/white"
+            app:boxStrokeColor="@color/is_light_blue"
+            app:boxStrokeWidth="2dp"
+            app:hintTextColor="@color/black"
+            app:passwordToggleEnabled="true"
+            app:startIconDrawable="@drawable/lock">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:textSize="10sp"
+                android:singleLine="true"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:id="@+id/forget_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:clickable="true"
+            android:layout_marginTop="10dp"
+            android:text="Forgot password ?"
+            android:textColor="@color/dash_gif_blue"
+            android:textSize="12sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/login_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/curve_corner"
+            android:backgroundTint="@color/is_light_blue"
+            android:includeFontPadding="false"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:text="Login"
+            android:textAllCaps="false"
+            android:textColor="@color/is_dark_blue"
+            android:textSize="10sp"
+            android:transitionName="login_forget"
+            android:layout_marginBottom="20dp"/>
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

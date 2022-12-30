@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+    </style>
+
+    <style name="ThemeOverlay.TeacherApp.FullscreenContainer" parent="AppTheme">
+
+    </style>
+</resources>
