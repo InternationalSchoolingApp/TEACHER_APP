@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:theme="@style/AppTheme"
+    tools:context=".ProfileActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:id="@+id/header"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/back"
+            android:id="@+id/profile_back_button"
+            app:tint="@color/dash_gif_blue" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:includeFontPadding="false"
+            android:text="My Profile"
+            android:textSize="20sp" />
+
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scroll_profile"
+        android:layout_below="@+id/header"
+        android:background="@drawable/login_background"
+        android:layout_marginTop="20dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="150dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                app:cardElevation="10dp"
+                android:layout_height="150dp"
+                app:cardCornerRadius="20dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:id="@+id/profile_image" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_marginTop="20dp"
+                android:textSize="15sp"
+                android:id="@+id/name_tv"
+                android:textColor="@color/white"
+                android:fontFamily="casual"
+                android:includeFontPadding="false" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_marginTop="5dp"
+                android:textSize="15sp"
+                android:id="@+id/email"
+                android:textColor="@color/white"
+                android:fontFamily="casual"
+                android:includeFontPadding="false" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/curve_corner"
+                android:backgroundTint="@color/white"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rollNumberText"
+                    android:text="Phone number :"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/dash_gif_blue"
+                    android:textSize="18sp"
+                    android:fontFamily="casual"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dash_gif_blue"
+                    android:textSize="15sp"
+                    android:includeFontPadding="false"
+                    android:id="@+id/phone_number"
+                    android:layout_below="@+id/rollNumberText"
+                    android:fontFamily="casual"
+                    android:layout_marginLeft="10dp"/>
+
+            </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/curve_corner"
+                android:backgroundTint="@color/white"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/contact_text"
+                    android:text="Application Number :"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/dash_gif_blue"
+                    android:textSize="18sp"
+                    android:fontFamily="casual"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dash_gif_blue"
+                    android:textSize="15sp"
+                    android:includeFontPadding="false"
+                    android:id="@+id/applicationNumberProfile"
+                    android:layout_below="@+id/contact_text"
+                    android:fontFamily="casual"
+                    android:layout_marginLeft="10dp"/>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/curve_corner"
+                android:backgroundTint="@color/white"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Address :"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/location_text"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/dash_gif_blue"
+                    android:textSize="18sp"
+                    android:fontFamily="casual"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dash_gif_blue"
+                    android:textSize="15sp"
+                    android:includeFontPadding="false"
+                    android:id="@+id/address"
+                    android:layout_below="@+id/location_text"
+                    android:fontFamily="casual"
+                    android:layout_marginLeft="10dp"/>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/curve_corner"
+                android:backgroundTint="@color/white"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Designation :"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/designation_text"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/dash_gif_blue"
+                    android:textSize="18sp"
+                    android:fontFamily="casual"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dash_gif_blue"
+                    android:textSize="15sp"
+                    android:includeFontPadding="false"
+                    android:id="@+id/designation"
+                    android:layout_below="@+id/designation_text"
+                    android:fontFamily="casual"
+                    android:layout_marginLeft="10dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/curve_corner"
+                android:backgroundTint="@color/white"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="20dp"
+                android:layout_marginBottom="50dp">
+
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date of Joining :"
+                    android:id="@+id/parent_text"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/dash_gif_blue"
+                    android:textSize="18sp"
+                    android:fontFamily="casual"
+                    android:layout_marginLeft="10dp"/>
+
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dash_gif_blue"
+                    android:textSize="15sp"
+                    android:includeFontPadding="false"
+                    android:id="@+id/doj_tv"
+                    android:layout_below="@+id/parent_text"
+                    android:fontFamily="casual"
+                    android:layout_marginLeft="10dp"/>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+
+</RelativeLayout>

@@ -6,8 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:theme="@style/AppTheme"
-    tools:context=".Login">
-
+    tools:context=".Forget">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -27,11 +26,12 @@
             tools:ignore="SpeakableTextPresentCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="100dp"
-        android:id="@+id/scroll_login_layout"
+        android:id="@+id/scroll_forget_layout"
         android:background="@drawable/login_background">
 
         <LinearLayout
@@ -43,7 +43,6 @@
                 android:layout_width="220dp"
                 android:layout_height="65dp"
                 android:layout_marginTop="40dp"
-
                 android:src="@drawable/whitelogo" />
 
             <TextView
@@ -52,7 +51,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="40dp"
                 android:includeFontPadding="false"
-                android:text="Welcome Back,"
+                android:text="Don't Worry,"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -62,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:includeFontPadding="false"
-                android:text="Login"
+                android:text="Enter Mail"
                 android:textColor="@color/white"
                 android:textSize="40sp" />
 
@@ -71,115 +70,64 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:includeFontPadding="false"
-                android:text="to continue"
+                android:text="to get reset link"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/username"
-                android:layout_marginTop="10dp"
+                android:id="@+id/forget_email_tv"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:hint="Username"
-                app:boxCornerRadiusTopEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusBottomStart="20dp"
-                android:transitionName="user_name"
-                app:boxBackgroundColor="@color/white"
-                app:boxCollapsedPaddingTop="5dp"
-                app:boxStrokeColor="@color/is_light_blue"
-                app:boxStrokeErrorColor="@color/design_default_color_error"
-                app:boxStrokeWidth="2dp"
+                android:hint="Email"
                 app:helperTextTextColor="@color/design_default_color_error"
+                android:includeFontPadding="false"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeColor="@color/is_light_blue"
+                app:boxStrokeWidth="2dp"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="20dp"
                 app:hintTextColor="@color/black"
                 app:startIconDrawable="@drawable/username">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:includeFontPadding="false"
-                    android:singleLine="true"
-                    android:textSize="10sp"
-                    tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/password"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Password"
-                app:boxCornerRadiusTopEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
-                android:includeFontPadding="false"
-                app:boxBackgroundColor="@color/white"
-                android:layout_marginHorizontal="20dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusBottomStart="20dp"
-                app:boxStrokeColor="@color/is_light_blue"
-                app:boxStrokeWidth="2dp"
-                app:helperTextTextColor="@color/design_default_color_error"
-                app:hintTextColor="@color/black"
-                app:passwordToggleEnabled="true"
-                app:startIconDrawable="@drawable/lock">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:singleLine="true"
                     android:textSize="10sp"
-                    tools:ignore="TouchTargetSizeCheck" />
+                    android:singleLine="true"
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/login_btn"
+                android:id="@+id/forget_page_btn"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/curve_corner"
-                android:backgroundTint="@color/is_dark_blue"
+                android:backgroundTint="@color/is_light_blue"
                 android:includeFontPadding="false"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
+                android:text="Submit"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:text="Login"
+                android:textColor="@color/is_dark_blue"
                 android:textSize="15sp"
-                android:transitionName="login_forget"
-                tools:ignore="SpeakableTextPresentCheck" />
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="60dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Forget Password ? "
-                    android:textStyle="italic"
-                    android:textColor="@color/white"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Click here too reset"
-                    android:id="@+id/forget_btn"
-                    android:textStyle="bold"
-                    android:textColor="#ff0000"/>
-            </LinearLayout>
-
-
-
+                android:transitionName="login_forget" />
 
 
         </LinearLayout>
 
+
     </ScrollView>
+
+
+
 
 
 </RelativeLayout>

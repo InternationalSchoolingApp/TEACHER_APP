@@ -3,6 +3,7 @@ package com.isApp.teacher.sharedPreference;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.isApp.teacher.Network.Retrofit.RetroFitClient;
 import com.isApp.teacher.common.Constants;
 
 public class PreferenceManager {
@@ -31,6 +32,16 @@ public class PreferenceManager {
 
     public String getString(String key){
         return sharedPreferences.getString(key, null);
+    }
+
+    public void putInt(String key, Integer value){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(key, value);
+        editor.apply();
+    }
+
+    public Integer getInt(String key){
+        return sharedPreferences.getInt(key,0);
     }
 
     public void clear(){

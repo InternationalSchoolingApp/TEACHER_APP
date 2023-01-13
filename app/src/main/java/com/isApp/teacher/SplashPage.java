@@ -30,11 +30,11 @@ public class SplashPage extends AppCompatActivity {
         preferenceManager = new PreferenceManager(getApplicationContext());
         new Handler().postDelayed(new Runnable() {
             Intent intent;
-
             @Override
             public void run() {
                 if (preferenceManager.getBoolean(Constants.USER_LOGGED)) {
-
+                    intent = new Intent(SplashPage.this, DashboardActivity.class);
+                    startActivity(intent);
                 } else {
                     intent = new Intent(SplashPage.this, Login.class);
                     startActivity(intent);

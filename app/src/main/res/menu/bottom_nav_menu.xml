@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<item
+    android:id="@+id/nav_dashboard"
+    android:title="Dashboard"
+    android:icon="@drawable/dashboard_icon"
+    app:cnb_backgroundColor="@color/white" />
+
+<item
+    android:id="@+id/nav_chat"
+    android:title="Chat"
+    android:icon="@drawable/chat_icon"
+    app:cnb_backgroundColor="@color/white" />
+
+<item
+    android:id="@+id/nav_more"
+    android:title="More"
+    android:icon="@drawable/extra_icon"
+    app:cnb_backgroundColor="@color/white" />
+
+</menu>
