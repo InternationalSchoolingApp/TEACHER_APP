@@ -85,14 +85,30 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:id="@+id/assignSubject"
-                android:background="@drawable/curve_corner"
+                android:background="@drawable/curve_corner_less"
                 android:backgroundTint="@color/is_light_blue"
                 android:padding="10dp">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:text="Assign Subjects"
+                    android:text="Assigned Subjects"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:id="@+id/schedule"
+                android:background="@drawable/curve_corner_less"
+                android:backgroundTint="@color/is_light_blue"
+                android:padding="10dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="Schedule"
                     />
             </RelativeLayout>
 

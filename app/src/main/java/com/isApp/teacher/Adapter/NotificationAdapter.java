@@ -1,5 +1,6 @@
 package com.isApp.teacher.Adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.isApp.teacher.Model.NotificationForApp;
+import com.isApp.teacher.NotificationViewActivity;
 import com.isApp.teacher.R;
 
 import java.util.List;
@@ -33,9 +35,26 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public void onBindViewHolder(@NonNull NotificationViewHolder holder, int position) {
+
+        String title = list.get(position).getEntityName();
+        String message = list.get(position).getMessage();
+        String time = list.get(position).getCreatedDate();
+
         holder.title.setText(list.get(position).getEntityName());
         holder.message.setText(list.get(position).getMessage());
         holder.time.setText(list.get(position).getCreatedDate());
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), NotificationViewActivity.class);
+                intent.putExtra("title", title);
+                intent.putExtra("message", message);
+                intent.putExtra("time", time);
+                v.getContext().startActivity(intent);
+            }
+        });
+
+
     }
 
     @Override

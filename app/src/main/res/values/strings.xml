@@ -13,5 +13,6 @@
     <string name="title_activity_notification">Notification</string>
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_activity_assign_subject">AssignSubjectActivity</string>
+    <string name="title_activity_notification_view">NotificationViewActivity</string>
 
 </resources>

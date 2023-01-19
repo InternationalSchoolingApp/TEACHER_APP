@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,21 +22,21 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.isApp.teacher.Model.FirebaseTokenModel;
 import com.isApp.teacher.Model.LoginModel;
 import com.isApp.teacher.Network.ApiInterface;
+import com.isApp.teacher.Network.NetworkChangeListener;
 import com.isApp.teacher.Network.Retrofit.RetroFitClient;
 import com.isApp.teacher.common.ColorOfStatusAndNavBar;
 import com.isApp.teacher.common.Constants;
 import com.isApp.teacher.common.MobileModel;
 import com.isApp.teacher.databinding.ActivityLoginBinding;
 import com.isApp.teacher.sharedPreference.PreferenceManager;
-
 import java.util.HashMap;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Login extends AppCompatActivity {
 
+    NetworkChangeListener networkChangeListner = new NetworkChangeListener();
     private ActivityLoginBinding binding;
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     PreferenceManager preferenceManager;
@@ -122,6 +124,7 @@ public class Login extends AppCompatActivity {
                     saveTokenFireBase(userIdOnResponse);
                     Intent intent = new Intent(Login.this, DashboardActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
 
@@ -139,6 +142,7 @@ public class Login extends AppCompatActivity {
             FirebaseFirestore database = FirebaseFirestore.getInstance();
             CollectionReference user = database.collection(Constants.FIREBASE_USER_DB);
             HashMap<String, Object> data = new HashMap<>();
+            data.put("firebaseToken", preferenceManager.getString(Constants.FIREBASE_TOKEN));
             data.put("NAME", name);
             data.put("EMAIL", mail);
             data.put("USER_ID", userId);
@@ -228,6 +232,19 @@ public class Login extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListner, filter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListner);
+        super.onStop();
     }
 
 

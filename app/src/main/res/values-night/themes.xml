@@ -1,10 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="AppThemeNight" parent="@style/AppTheme"></style>
 
-    </style>
-
-    <style name="ThemeOverlay.TeacherApp.FullscreenContainer" parent="AppTheme">
-
+    <style name="ThemeOverlay.TeacherApp.FullscreenContainer" parent="">
+        <item name="fullscreenBackgroundColor">@color/light_blue_900</item>
+        <item name="fullscreenTextColor">@color/light_blue_A400</item>
     </style>
 </resources>

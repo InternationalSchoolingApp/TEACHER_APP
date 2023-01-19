@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 
 import com.isApp.teacher.Model.ForgetPasswordModel;
 import com.isApp.teacher.Network.ApiInterface;
+import com.isApp.teacher.Network.NetworkChangeListener;
 import com.isApp.teacher.Network.Retrofit.RetroFitClient;
 import com.isApp.teacher.common.ColorOfStatusAndNavBar;
 import com.isApp.teacher.databinding.ActivityForgetBinding;
@@ -27,7 +30,7 @@ public class Forget extends AppCompatActivity {
     private ActivityForgetBinding binding;
 
     
-
+    NetworkChangeListener networkChangeListner = new NetworkChangeListener();
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     Dialog dialog;
     ProgressDialog progressDialog;
@@ -161,6 +164,19 @@ public class Forget extends AppCompatActivity {
             textViewMessage.setText("Sorry,"+"/n there is a technical Glitch");
         }
 
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListner, filter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListner);
+        super.onStop();
     }
 
 }

@@ -1,13 +1,10 @@
 package com.isApp.teacher;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.widget.Toast;
-
 import com.isApp.teacher.Adapter.NotificationAdapter;
 import com.isApp.teacher.Model.NotificationForApp;
 import com.isApp.teacher.Network.ApiInterface;
@@ -15,13 +12,10 @@ import com.isApp.teacher.Network.Retrofit.RetroFitClient;
 import com.isApp.teacher.common.Constants;
 import com.isApp.teacher.databinding.ActivityNotificationBinding;
 import com.isApp.teacher.sharedPreference.PreferenceManager;
-
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 
 public class Notification extends AppCompatActivity {
 

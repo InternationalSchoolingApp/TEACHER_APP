@@ -1,20 +1,16 @@
 package com.isApp.teacher;
 
-import android.annotation.SuppressLint;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
-import android.os.Build;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowInsets;
 
+import com.isApp.teacher.Network.NetworkChangeListener;
 import com.isApp.teacher.databinding.ActivityDashboardBinding;
 import com.isApp.teacher.fragment.ChatFragment;
 import com.isApp.teacher.fragment.DashboardFragment;
@@ -24,8 +20,8 @@ import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 public class DashboardActivity extends AppCompatActivity {
 
-    private static final boolean AUTO_HIDE = true;
 
+    NetworkChangeListener networkChangeListner = new NetworkChangeListener();
     private ActivityDashboardBinding binding;
 
     @Override
@@ -70,6 +66,19 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListner, filter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListner);
+        super.onStop();
     }
 
 }

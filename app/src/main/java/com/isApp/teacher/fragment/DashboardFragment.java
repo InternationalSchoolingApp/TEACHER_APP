@@ -17,14 +17,12 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.isApp.teacher.AssignSubjectActivity;
-import com.isApp.teacher.AssignedStudent;
 import com.isApp.teacher.Model.DashBoardModel;
 import com.isApp.teacher.Network.ApiInterface;
 import com.isApp.teacher.Network.Retrofit.RetroFitClient;
 import com.isApp.teacher.ProfileActivity;
 import com.isApp.teacher.R;
 import com.isApp.teacher.common.Constants;
-import com.isApp.teacher.databinding.FragmentDashboardBinding;
 import com.isApp.teacher.sharedPreference.PreferenceManager;
 
 import retrofit2.Call;
