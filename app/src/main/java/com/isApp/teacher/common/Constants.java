@@ -37,6 +37,7 @@ public class Constants {
     public static final String KEY_AVAILABLITY="online";
     public static final String AUTHORIZATION="Authorization";
     public static final String KEY_TEACHER_ID="teacherId";
+    public static final String KEY_STUDENT_ID="studentId";
     public static final String CONTENT_TYPE="Content-Type";
     public static final String REMOTE_MESSAGE_DATA="data";
     public static final String REGISTRATION_IDS="registration_ids";

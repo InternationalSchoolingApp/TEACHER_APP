@@ -1,19 +1,19 @@
 package com.isApp.teacher.Adapter;
 
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.isApp.teacher.Model.AssignedSubjects;
 import com.isApp.teacher.R;
+import com.isApp.teacher.SubjectDescriptionActivity;
 
 import java.util.List;
 
@@ -40,6 +40,15 @@ public class AssignedSubjectAdapter extends RecyclerView.Adapter<AssignedSubject
         holder.courseProvider.setText(list.get(position).getCourseProviderName());
         holder.startDate.setText(list.get(position).getStartDate());
         holder.standardName.setText(list.get(position).getStandardName());
+        String subjectId = list.get(position).getSubjectId();
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), SubjectDescriptionActivity.class);
+                intent.putExtra("subjectId", subjectId);
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -51,7 +60,6 @@ public class AssignedSubjectAdapter extends RecyclerView.Adapter<AssignedSubject
 
         TextView courseName, standardName, courseProvider, startDate;
         LinearLayout layout;
-        ImageView image;
         public AssignedSubjectViewHolder(@NonNull View itemView) {
             super(itemView);
             startDate = itemView.findViewById(R.id.start_date);

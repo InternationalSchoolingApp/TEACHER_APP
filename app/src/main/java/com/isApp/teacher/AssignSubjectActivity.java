@@ -4,8 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
-import com.isApp.teacher.Adapter.AssignStudentAdapter;
 import com.isApp.teacher.Adapter.AssignedSubjectAdapter;
 import com.isApp.teacher.Model.AssignedSubjects;
 import com.isApp.teacher.Network.ApiInterface;
@@ -29,6 +29,7 @@ public class AssignSubjectActivity extends AppCompatActivity {
 
         binding = ActivityAssignSubjectBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.profileBackButton.setOnClickListener(v -> onBackPressed());
 
         binding.assignSubjectRecyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
@@ -41,12 +42,12 @@ public class AssignSubjectActivity extends AppCompatActivity {
         call.enqueue(new Callback<AssignedSubjects>() {
             @Override
             public void onResponse(Call<AssignedSubjects> call, Response<AssignedSubjects> response) {
-                if (response.body().getStatus().equals("success")){
+                if (response.body().getStatus().equals("success")) {
 
                     AssignedSubjectAdapter assignedSubjectAdapter = new AssignedSubjectAdapter(response.body().getTeacherSubjectDTO());
                     binding.assignSubjectRecyclerView.setAdapter(assignedSubjectAdapter);
-                }else{
-                    //Toast.makeText(AssignedStudent.this, "No Student Assigned", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(AssignSubjectActivity.this, "No Student Assigned", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -56,8 +57,6 @@ public class AssignSubjectActivity extends AppCompatActivity {
 
             }
         });
-
-
 
 
     }

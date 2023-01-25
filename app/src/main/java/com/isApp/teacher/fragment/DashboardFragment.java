@@ -20,8 +20,10 @@ import com.isApp.teacher.AssignSubjectActivity;
 import com.isApp.teacher.Model.DashBoardModel;
 import com.isApp.teacher.Network.ApiInterface;
 import com.isApp.teacher.Network.Retrofit.RetroFitClient;
+import com.isApp.teacher.NotesActivity;
 import com.isApp.teacher.ProfileActivity;
 import com.isApp.teacher.R;
+import com.isApp.teacher.ScheduleActivity;
 import com.isApp.teacher.common.Constants;
 import com.isApp.teacher.sharedPreference.PreferenceManager;
 
@@ -40,7 +42,7 @@ public class DashboardFragment extends Fragment {
     PreferenceManager preferenceManager;
     ImageView image;
     TextView name, applicationNumber;
-    RelativeLayout relativeLayout, assignSubjects;
+    RelativeLayout relativeLayout, assignSubjects, schedule, notes;
     ProgressDialog progressDialog;
 
     @Override
@@ -52,6 +54,14 @@ public class DashboardFragment extends Fragment {
         applicationNumber = view.findViewById(R.id.application_number);
         relativeLayout = view.findViewById(R.id.relativeLayoutProfile);
         assignSubjects = view.findViewById(R.id.assignSubject);
+        notes = view.findViewById(R.id.notes);
+        notes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), NotesActivity.class);
+                startActivity(intent);
+            }
+        });
         assignSubjects.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,6 +74,14 @@ public class DashboardFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ProfileActivity.class);
                 startActivity(intent);
+            }
+        });
+        schedule = view.findViewById(R.id.schedule);
+        schedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ScheduleActivity.class);
+                v.getContext().startActivity(intent);
             }
         });
         progressDialog = new ProgressDialog(getContext());

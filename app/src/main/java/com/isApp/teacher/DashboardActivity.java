@@ -6,11 +6,13 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
 
 import com.isApp.teacher.Network.NetworkChangeListener;
+import com.isApp.teacher.common.ColorOfStatusAndNavBar;
 import com.isApp.teacher.databinding.ActivityDashboardBinding;
 import com.isApp.teacher.fragment.ChatFragment;
 import com.isApp.teacher.fragment.DashboardFragment;
@@ -27,6 +29,9 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ColorOfStatusAndNavBar colorOfStatusAndNavBar = new ColorOfStatusAndNavBar();
+        colorOfStatusAndNavBar.dashboard(this);
 
         binding = ActivityDashboardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

@@ -58,6 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
+                    android:fontFamily="@font/rubik"
                     android:includeFontPadding="false"
                     android:layout_marginBottom="3dp"
                     android:id="@+id/name_dashboard"
@@ -69,6 +70,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
                         android:text="ApplicationNumber"
+                        android:fontFamily="@font/rubik"
                         android:includeFontPadding="false"
                         android:layout_marginBottom="3dp"
                         android:id="@+id/application_number"
@@ -92,6 +94,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
+                    android:fontFamily="@font/rubik"
                     android:text="Assigned Subjects"
                     />
             </RelativeLayout>
@@ -108,7 +111,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
+                    android:fontFamily="@font/rubik"
                     android:text="Schedule"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:id="@+id/notes"
+                android:background="@drawable/curve_corner_less"
+                android:backgroundTint="@color/is_light_blue"
+                android:padding="10dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/rubik"
+                    android:text="Notes"
                     />
             </RelativeLayout>
 

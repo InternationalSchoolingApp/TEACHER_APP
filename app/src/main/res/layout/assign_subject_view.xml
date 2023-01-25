@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
     android:orientation="vertical"
     android:id="@+id/subject_linear_layout">
 
@@ -12,7 +11,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/subject_row"
         android:background="@drawable/curve_corner"
-        android:backgroundTint="@color/is_light_blue"
+        android:backgroundTint="@color/white"
         android:layout_margin="10dp">
 
 
@@ -26,11 +25,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/course_name"
+                android:fontFamily="@font/rubik"
                 android:textAlignment="center"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/rubik"
                 android:id="@+id/course_provider"
                 android:textAlignment="center"/>
 
@@ -38,11 +39,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/standard_name"
+                android:fontFamily="@font/rubik"
                 android:textAlignment="center"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/rubik"
                 android:id="@+id/start_date"
                 android:textAlignment="center"/>
 

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:theme="@style/ThemeOverlay.TeacherApp.FullscreenContainer"
+    tools:context=".NotesViewActivity">
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/back"
+            android:padding="10dp"
+            android:id="@+id/teacher_profile_back_button"
+            app:tint="@color/dash_gif_blue" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/rubik"
+            android:includeFontPadding="false"
+            android:text="Note"
+            android:textColor="@color/dash_gif_blue"
+            android:textSize="20sp" />
+
+
+    </RelativeLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dash_gif_blue"
+            android:text="Title :"
+            android:fontFamily="@font/rubik"
+            android:textSize="20sp"
+            android:layout_marginHorizontal="15dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:textColor="@color/dash_gif_blue"
+            android:layout_height="wrap_content"
+            android:id="@+id/title"
+            android:fontFamily="@font/rubik"
+            android:textSize="18sp"
+            android:layout_marginHorizontal="15dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Message :"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/rubik"
+            android:textColor="@color/dash_gif_blue"
+            android:textSize="20sp"
+            android:layout_marginHorizontal="15dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/message"
+            android:fontFamily="@font/rubik"
+            android:textColor="@color/dash_gif_blue"
+            android:textSize="15sp"
+            android:layout_marginHorizontal="15dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Time :"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/rubik"
+            android:textColor="@color/dash_gif_blue"
+            android:textSize="10sp"
+            android:layout_marginHorizontal="15dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/time"
+            android:fontFamily="@font/rubik"
+            android:textColor="@color/dash_gif_blue"
+            android:textSize="10sp"
+            android:layout_marginHorizontal="15dp"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

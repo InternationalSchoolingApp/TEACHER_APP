@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -39,6 +38,7 @@ public class ChatActivity extends AppCompatActivity {
     private PreferenceManager preferenceManager;
     private ActivityChatBinding binding;
     private String studentName, subject, studentId, studentEmail, senderId;
+    private String conversionId = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +114,20 @@ public class ChatActivity extends AppCompatActivity {
         message.put("message", binding.chatEdittext.getText().toString());
         message.put("timeStamp", new Date());
         database.collection("CHAT").add(message);
+        if (conversionId != null) {
+            updateConversion(binding.chatEdittext.getText().toString());
+        } else {
+            HashMap<String, Object> conversion = new HashMap<>();
+            conversion.put(Constants.KEY_SENDER_ID, senderId);
+            conversion.put(Constants.KEY_SENDER_NAME, preferenceManager.getString(Constants.NAME));
+            conversion.put(Constants.KEY_RECIEVER_ID, studentEmail.toLowerCase());
+            conversion.put(Constants.KEY_RECEIVER_NAME, studentName);
+            conversion.put(Constants.KEY_STUDENT_ID, studentId);
+            conversion.put(Constants.KEY_SUBJECT_NAME, subject);
+            conversion.put(Constants.KEY_LAST_MESSAGE, binding.chatEdittext.getText().toString());
+            conversion.put(Constants.KEY_TIME_STAMP, new Date());
+            addConversion(conversion);
+        }
         binding.chatEdittext.setText(null);
     }
 
@@ -167,4 +181,34 @@ public class ChatActivity extends AppCompatActivity {
     private String getReadableDateTime(Date date ){
         return  new SimpleDateFormat("MMMM dd, yyyy - hh:mm a", Locale.getDefault()).format(date);
     }
+
+    private void checkForConversion() {
+        if (chatMessages.size() != 0) {
+            checkForConversionRemotely(senderId, studentEmail.toLowerCase());
+            checkForConversionRemotely(studentEmail.toLowerCase(), senderId);
+        }
+    }
+
+
+    private void addConversion(HashMap<String, Object> conversion) {
+        database.collection(Constants.KEY_COLLECTIONS_CONVERSATION)
+                .add(conversion)
+                .addOnSuccessListener(documentReference -> conversionId = documentReference.getId());
+    }
+
+    private void updateConversion(String message) {
+        DocumentReference documentReference = database.collection(Constants.KEY_COLLECTIONS_CONVERSATION).document(conversionId);
+        documentReference.update(Constants.KEY_LAST_MESSAGE, message, Constants.KEY_TIME_STAMP, new Date());
+    }
+
+    private void checkForConversionRemotely(String senderId, String receiverId) {
+        Task<QuerySnapshot> querySnapshotTask = database.collection(Constants.KEY_COLLECTIONS_CONVERSATION).whereEqualTo(Constants.KEY_SENDER_ID, senderId).whereEqualTo(Constants.KEY_RECIEVER_ID, studentEmail.toLowerCase()).get().addOnCompleteListener(conversionCompleteListener);
+    }
+
+    private final OnCompleteListener<QuerySnapshot> conversionCompleteListener = task -> {
+        if (task.isSuccessful() && task.getResult() != null && task.getResult().getDocuments().size() > 0) {
+            DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+            conversionId = documentSnapshot.getId();
+        }
+    };
 }

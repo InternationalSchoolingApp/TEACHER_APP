@@ -2,13 +2,18 @@ package com.isApp.teacher.Network;
 
 import com.isApp.teacher.Model.AssignStudentModel;
 import com.isApp.teacher.Model.AssignedSubjects;
+import com.isApp.teacher.Model.CreateMyNotes;
 import com.isApp.teacher.Model.DashBoardModel;
 import com.isApp.teacher.Model.DashboardNotificationModel;
 import com.isApp.teacher.Model.FirebaseTokenModel;
 import com.isApp.teacher.Model.ForgetPasswordModel;
+import com.isApp.teacher.Model.GetNotes;
 import com.isApp.teacher.Model.LoginModel;
+import com.isApp.teacher.Model.LogoutModel;
 import com.isApp.teacher.Model.NotificationForApp;
 import com.isApp.teacher.Model.ProfileModel;
+import com.isApp.teacher.Model.ScheduleModel;
+import com.isApp.teacher.Model.SubjectDescription;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -18,6 +23,12 @@ public interface ApiInterface {
 
     @POST("login-platform-App-teacher")
     Call<LoginModel> loginPostData(@Body LoginModel loginModel);
+
+    @POST("get-my-notes")
+    Call<GetNotes> getMyNotes(@Body GetNotes getNotes);
+
+    @POST("create-my-notes")
+    Call<CreateMyNotes> createMyNotes(@Body CreateMyNotes createMyNotes);
 
     @POST("device-token")
     Call<FirebaseTokenModel> firebaseToken(@Body FirebaseTokenModel firebaseTokenModel);
@@ -43,5 +54,14 @@ public interface ApiInterface {
 
     @POST("teacher-subject")
     Call<AssignedSubjects> getSubject(@Body AssignedSubjects assignedSubjects);
+
+    @POST("subject-description")
+    Call<SubjectDescription> getSubjectDescription(@Body SubjectDescription subjectDescription);
+
+    @POST("school-calendar")
+    Call<ScheduleModel> getSchedule(@Body ScheduleModel scheduleModel);
+
+    @POST("logout-platform-App")
+    Call<LogoutModel> logoutPostData(@Body LogoutModel logoutModel);
 
 }

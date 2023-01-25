@@ -26,6 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:fontFamily="@font/rubik"
             android:includeFontPadding="false"
             android:text="My Profile"
             android:textSize="20sp" />
@@ -73,13 +74,14 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/rubik"
                 android:textSize="15sp"
                 android:id="@+id/name_tv"
                 android:textColor="@color/white"
-                android:fontFamily="casual"
                 android:includeFontPadding="false" />
 
             <TextView
+                android:fontFamily="@font/rubik"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
@@ -87,7 +89,6 @@
                 android:textSize="15sp"
                 android:id="@+id/email"
                 android:textColor="@color/white"
-                android:fontFamily="casual"
                 android:includeFontPadding="false" />
 
 
@@ -102,6 +103,7 @@
                 android:paddingVertical="20dp">
 
                 <TextView
+                    android:fontFamily="@font/rubik"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/rollNumberText"
@@ -109,10 +111,10 @@
                     android:includeFontPadding="false"
                     android:textColor="@color/dash_gif_blue"
                     android:textSize="18sp"
-                    android:fontFamily="casual"
                     android:layout_marginLeft="10dp"/>
 
                 <TextView
+                    android:fontFamily="@font/rubik"
                     android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -121,7 +123,7 @@
                     android:includeFontPadding="false"
                     android:id="@+id/phone_number"
                     android:layout_below="@+id/rollNumberText"
-                    android:fontFamily="casual"
+                     
                     android:layout_marginLeft="10dp"/>
 
             </RelativeLayout>
@@ -139,6 +141,7 @@
                 android:paddingVertical="20dp">
 
                 <TextView
+                    android:fontFamily="@font/rubik"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/contact_text"
@@ -146,10 +149,11 @@
                     android:includeFontPadding="false"
                     android:textColor="@color/dash_gif_blue"
                     android:textSize="18sp"
-                    android:fontFamily="casual"
+                     
                     android:layout_marginLeft="10dp"/>
 
                 <TextView
+                    android:fontFamily="@font/rubik"
                     android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -158,7 +162,7 @@
                     android:includeFontPadding="false"
                     android:id="@+id/applicationNumberProfile"
                     android:layout_below="@+id/contact_text"
-                    android:fontFamily="casual"
+                     
                     android:layout_marginLeft="10dp"/>
 
             </RelativeLayout>
@@ -175,6 +179,7 @@
                 android:paddingVertical="20dp">
 
                 <TextView
+                    android:fontFamily="@font/rubik"
                     android:layout_width="wrap_content"
                     android:text="Address :"
                     android:layout_height="wrap_content"
@@ -182,10 +187,11 @@
                     android:includeFontPadding="false"
                     android:textColor="@color/dash_gif_blue"
                     android:textSize="18sp"
-                    android:fontFamily="casual"
+                     
                     android:layout_marginLeft="10dp"/>
 
                 <TextView
+                    android:fontFamily="@font/rubik"
                     android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -194,7 +200,7 @@
                     android:includeFontPadding="false"
                     android:id="@+id/address"
                     android:layout_below="@+id/location_text"
-                    android:fontFamily="casual"
+                     
                     android:layout_marginLeft="10dp"/>
 
             </RelativeLayout>
@@ -211,6 +217,7 @@
                 android:paddingVertical="20dp">
 
                 <TextView
+                    android:fontFamily="@font/rubik"
                     android:layout_width="wrap_content"
                     android:text="Designation :"
                     android:layout_height="wrap_content"
@@ -218,10 +225,11 @@
                     android:includeFontPadding="false"
                     android:textColor="@color/dash_gif_blue"
                     android:textSize="18sp"
-                    android:fontFamily="casual"
+                     
                     android:layout_marginLeft="10dp"/>
 
                 <TextView
+                    android:fontFamily="@font/rubik"
                     android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -230,7 +238,7 @@
                     android:includeFontPadding="false"
                     android:id="@+id/designation"
                     android:layout_below="@+id/designation_text"
-                    android:fontFamily="casual"
+                     
                     android:layout_marginLeft="10dp"/>
 
             </RelativeLayout>
@@ -251,6 +259,7 @@
 
 
                 <TextView
+                    android:fontFamily="@font/rubik"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Date of Joining :"
@@ -258,11 +267,12 @@
                     android:includeFontPadding="false"
                     android:textColor="@color/dash_gif_blue"
                     android:textSize="18sp"
-                    android:fontFamily="casual"
+                     
                     android:layout_marginLeft="10dp"/>
 
 
                 <TextView
+                    android:fontFamily="@font/rubik"
                     android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -271,7 +281,7 @@
                     android:includeFontPadding="false"
                     android:id="@+id/doj_tv"
                     android:layout_below="@+id/parent_text"
-                    android:fontFamily="casual"
+                     
                     android:layout_marginLeft="10dp"/>
 
             </RelativeLayout>
