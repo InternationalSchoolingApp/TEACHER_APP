@@ -40,10 +40,7 @@
             android:exported="false"
             android:label="@string/title_activity_recent_chat"
             android:theme="@style/AppTheme.Fullscreen" />
-        <activity
-            android:name=".ui.login.RecentChatActivity"
-            android:exported="false"
-            android:label="@string/title_activity_recent_chat" />
+
         <activity
             android:name=".ScheduleViewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

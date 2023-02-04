@@ -164,6 +164,7 @@ public class Login extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     if (task.getResult().getData()!= null) {
+                        docRef.update("firebaseToken", preferenceManager.getString(Constants.FIREBASE_TOKEN));
                         i[0] = 1;
                         preferenceManager.putString(Constants.USER_ID_FIREBASE, task.getResult().getId());
                         Log.d("FCM User", "Exist : " + task.getResult().getData());

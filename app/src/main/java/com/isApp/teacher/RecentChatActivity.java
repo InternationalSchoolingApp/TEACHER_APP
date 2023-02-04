@@ -1,26 +1,24 @@
 package com.isApp.teacher;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.isApp.teacher.Adapter.RecentConversionAdapter;
 import com.isApp.teacher.Model.ChatMessage;
+import com.isApp.teacher.common.BaseActivity;
+import com.isApp.teacher.common.ColorOfStatusAndNavBar;
 import com.isApp.teacher.common.Constants;
 import com.isApp.teacher.databinding.ActivityRecentChatBinding;
 import com.isApp.teacher.sharedPreference.PreferenceManager;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class RecentChatActivity extends AppCompatActivity {
+public class RecentChatActivity extends BaseActivity {
 
 
     private ActivityRecentChatBinding binding;
@@ -39,6 +37,9 @@ public class RecentChatActivity extends AppCompatActivity {
         init();
         setListeners();
         listenConversations();
+
+        ColorOfStatusAndNavBar colorOfStatusAndNavBar = new ColorOfStatusAndNavBar();
+        colorOfStatusAndNavBar.loginAndForgetPassword(this);
 
     }
 
@@ -94,9 +95,9 @@ public class RecentChatActivity extends AppCompatActivity {
                     chatMessage.message = documentChange.getDocument().getString(Constants.KEY_LAST_MESSAGE);
                     chatMessage.dateObject = documentChange.getDocument().getDate(Constants.KEY_TIME_STAMP);
                     chatMessage.studentCourse = documentChange.getDocument().getString(Constants.KEY_SUBJECT_NAME);
-                    chatMessage.studentName = documentChange.getDocument().getString(Constants.KEY_RECEIVER_NAME);
-                    chatMessage.studentUserId = documentChange.getDocument().getString(Constants.KEY_STUDENT_ID);
-                    chatMessage.studentEmail = documentChange.getDocument().getString(Constants.KEY_RECIEVER_ID);
+                    chatMessage.studentName = documentChange.getDocument().getString("studentName");
+                    chatMessage.studentUserId = documentChange.getDocument().getString("studentId");
+                    chatMessage.studentEmail = documentChange.getDocument().getString("studentEmail");
                     conversation.add(chatMessage);
                 } else if (documentChange.getType() == DocumentChange.Type.MODIFIED) {
                     for (int i = 0; i < conversation.size(); i++) {
@@ -108,7 +109,7 @@ public class RecentChatActivity extends AppCompatActivity {
                             conversation.get(i).studentCourse = documentChange.getDocument().getString(Constants.KEY_SUBJECT_NAME);
                             conversation.get(i).studentName = documentChange.getDocument().getString(Constants.KEY_RECEIVER_NAME);
                             conversation.get(i).studentUserId = documentChange.getDocument().getString(Constants.KEY_STUDENT_ID);
-                            conversation.get(i).studentEmail = documentChange.getDocument().getString(Constants.KEY_RECIEVER_ID);
+                            conversation.get(i).studentEmail = documentChange.getDocument().getString("studentEmail");
                             break;
                         }
 

@@ -3,12 +3,14 @@ package com.isApp.teacher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 import com.isApp.teacher.Adapter.NotificationAdapter;
 import com.isApp.teacher.Model.NotificationForApp;
 import com.isApp.teacher.Network.ApiInterface;
 import com.isApp.teacher.Network.Retrofit.RetroFitClient;
+import com.isApp.teacher.common.ColorOfStatusAndNavBar;
 import com.isApp.teacher.common.Constants;
 import com.isApp.teacher.databinding.ActivityNotificationBinding;
 import com.isApp.teacher.sharedPreference.PreferenceManager;
@@ -29,6 +31,8 @@ public class Notification extends AppCompatActivity {
 
         binding = ActivityNotificationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        ColorOfStatusAndNavBar colorOfStatusAndNavBar = new ColorOfStatusAndNavBar();
+        colorOfStatusAndNavBar.loginAndForgetPassword(this);
         binding.notificationList.setHasFixedSize(true);
         progressDialog = new ProgressDialog(this);
         binding.notificationBackButton.setOnClickListener(v-> onBackPressed());
@@ -68,5 +72,12 @@ public class Notification extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(Notification.this, DashboardActivity.class);
+        startActivity(i);
+        finish();
 
+    }
 }

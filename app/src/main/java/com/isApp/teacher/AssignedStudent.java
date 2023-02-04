@@ -31,7 +31,7 @@ public class AssignedStudent extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         binding.assignStudentRV.setLayoutManager(llm);
         ColorOfStatusAndNavBar colorOfStatusAndNavBar = new ColorOfStatusAndNavBar();
-        colorOfStatusAndNavBar.dashboard(this);
+        colorOfStatusAndNavBar.loginAndForgetPassword(this);
         preferenceManager = new PreferenceManager(getApplicationContext());
         binding.assignTeacherBackButton.setOnClickListener(v->onBackPressed());
 

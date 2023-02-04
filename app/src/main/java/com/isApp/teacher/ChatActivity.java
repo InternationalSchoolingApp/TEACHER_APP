@@ -6,9 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -17,9 +19,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.isApp.teacher.Adapter.ChatAdapter;
 import com.isApp.teacher.Model.ChatMessage;
+import com.isApp.teacher.common.BaseActivity;
+import com.isApp.teacher.common.ColorOfStatusAndNavBar;
 import com.isApp.teacher.common.Constants;
 import com.isApp.teacher.databinding.ActivityChatBinding;
+import com.isApp.teacher.fcmApi.FcmApiClient;
+import com.isApp.teacher.fcmApi.FcmApiInterface;
 import com.isApp.teacher.sharedPreference.PreferenceManager;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,22 +38,30 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends BaseActivity {
 
     private List<ChatMessage> chatMessages;
     private ChatAdapter chatAdapter;
     private FirebaseFirestore database;
     private PreferenceManager preferenceManager;
     private ActivityChatBinding binding;
-    private String studentName, subject, studentId, studentEmail, senderId;
+
+    private Boolean online = false;
+    private String studentName, subject, studentId, studentEmail, senderId, recieverFcmToken;
     private String conversionId = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        ColorOfStatusAndNavBar colorOfStatusAndNavBar = new ColorOfStatusAndNavBar();
+        colorOfStatusAndNavBar.chat(this);
         binding = ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Bundle extra = getIntent().getExtras();
@@ -52,6 +70,7 @@ public class ChatActivity extends AppCompatActivity {
             studentName = extra.getString("studentName");
             subject = extra.getString("subject");
             studentEmail = extra.getString("email");
+            Log.d("VALUES", "onCreate: "+studentId+", "+studentName+", "+subject+", "+studentEmail);
         }
         init();
         setListeners();
@@ -123,10 +142,36 @@ public class ChatActivity extends AppCompatActivity {
             conversion.put(Constants.KEY_RECIEVER_ID, studentEmail.toLowerCase());
             conversion.put(Constants.KEY_RECEIVER_NAME, studentName);
             conversion.put(Constants.KEY_STUDENT_ID, studentId);
+            conversion.put("teacherEmail", senderId);
+            conversion.put("studentEmail", studentEmail.toLowerCase());
+            conversion.put("studentName", studentName);
             conversion.put(Constants.KEY_SUBJECT_NAME, subject);
+            conversion.put(Constants.KEY_TEACHER_ID, String.valueOf(preferenceManager.getInt(Constants.TEACHER_ID)));
             conversion.put(Constants.KEY_LAST_MESSAGE, binding.chatEdittext.getText().toString());
             conversion.put(Constants.KEY_TIME_STAMP, new Date());
             addConversion(conversion);
+            if(!online){
+                try{
+
+                    JSONArray tokens = new JSONArray();
+                    tokens.put(recieverFcmToken);
+
+                    JSONObject data = new JSONObject();
+                    data.put(Constants.USER_EMAIL, preferenceManager.getString(Constants.USER_EMAIL));
+                    data.put(Constants.NAME, preferenceManager.getString(Constants.NAME));
+                    data.put(Constants.FIREBASE_TOKEN, preferenceManager.getString(Constants.FIREBASE_TOKEN));
+                    data.put(Constants.KEY_MESSAGE, binding.chatEdittext.getText().toString());
+
+                    JSONObject body = new JSONObject();
+                    body.put(Constants.REMOTE_MESSAGE_DATA, data);
+                    body.put(Constants.REGISTRATION_IDS, tokens);
+
+                    sendNotification(body.toString());
+
+                }catch ( Exception exception){
+                    showToast(exception.toString());
+                }
+            }
         }
         binding.chatEdittext.setText(null);
     }
@@ -191,9 +236,10 @@ public class ChatActivity extends AppCompatActivity {
 
 
     private void addConversion(HashMap<String, Object> conversion) {
-        database.collection(Constants.KEY_COLLECTIONS_CONVERSATION)
-                .add(conversion)
-                .addOnSuccessListener(documentReference -> conversionId = documentReference.getId());
+        CollectionReference conversation = database.collection(Constants.KEY_COLLECTIONS_CONVERSATION);
+        conversation.document(""+studentEmail.toLowerCase()+" - "+preferenceManager.getString(Constants.USER_EMAIL).toLowerCase()).set(conversion).addOnSuccessListener(documentReference -> conversionId = (""+studentEmail.toLowerCase()+" - "+preferenceManager.getString(Constants.USER_EMAIL).toLowerCase())).addOnFailureListener(exception->{
+            Toast.makeText(this, "Nt updates", Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void updateConversion(String message) {
@@ -211,4 +257,78 @@ public class ChatActivity extends AppCompatActivity {
             conversionId = documentSnapshot.getId();
         }
     };
+
+    private void listenAvailabilityOfReceiver() {
+        database.collection(Constants.FIREBASE_USER_DB).document(""+studentEmail.toLowerCase()).addSnapshotListener(ChatActivity.this, ((value, error) -> {
+            if (error != null) {
+                return;
+            }
+            if (value != null) {
+                if (value.getLong(Constants.KEY_AVAILABLITY) != null) {
+                    int available = Objects.requireNonNull(value.getLong(Constants.KEY_AVAILABLITY).intValue());
+                    online = available == 1;
+                }
+                if (value.get(Constants.FIREBASE_TOKEN) != null) {
+                    recieverFcmToken = Objects.requireNonNull(value.get(Constants.FIREBASE_TOKEN).toString());
+                }
+            }
+            if (value.get(Constants.FIREBASE_TOKEN) != null) {
+                recieverFcmToken = Objects.requireNonNull(value.get(Constants.FIREBASE_TOKEN).toString());
+                Log.d("FCM TOKEN", "listenAvailabilityOfReceiver: " + recieverFcmToken);
+            } else {
+                Log.d("FCM TOKEN NULL", "listenAvailabilityOfReceiver: ");
+            }
+            if (online) {
+                binding.textOnline.setVisibility(View.VISIBLE);
+            } else {
+                binding.textOnline.setVisibility(View.GONE);
+            }
+
+        }));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        listenAvailabilityOfReceiver();
+    }
+
+    public void showToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void sendNotification(String messageBody) {
+
+        FcmApiClient.getClient().create(FcmApiInterface.class).sendMessage(Constants.getRemoteMessageHeaders(), messageBody).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
+
+                if (response.isSuccessful()) {
+                    try {
+                        if (response.body() != null) {
+                            JSONObject responseJson = new JSONObject(response.body());
+                            JSONArray results = responseJson.getJSONArray("results");
+                            if (responseJson.getInt("failure") == 1) {
+                                JSONObject error = (JSONObject) results.get(0);
+                                showToast(error.getString("error"));
+                                return;
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    showToast("Notification Sent");
+                } else {
+                    showToast("Error :" + response.code());
+                }
+            }
+
+
+            @Override
+            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+                showToast(t.getMessage());
+            }
+        });
+
+    }
 }

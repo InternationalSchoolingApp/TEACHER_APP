@@ -10,6 +10,7 @@ import com.isApp.teacher.Adapter.AssignedSubjectAdapter;
 import com.isApp.teacher.Model.AssignedSubjects;
 import com.isApp.teacher.Network.ApiInterface;
 import com.isApp.teacher.Network.Retrofit.RetroFitClient;
+import com.isApp.teacher.common.ColorOfStatusAndNavBar;
 import com.isApp.teacher.common.Constants;
 import com.isApp.teacher.databinding.ActivityAssignSubjectBinding;
 import com.isApp.teacher.sharedPreference.PreferenceManager;
@@ -30,6 +31,9 @@ public class AssignSubjectActivity extends AppCompatActivity {
         binding = ActivityAssignSubjectBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         binding.profileBackButton.setOnClickListener(v -> onBackPressed());
+
+        ColorOfStatusAndNavBar colorOfStatusAndNavBar = new ColorOfStatusAndNavBar();
+        colorOfStatusAndNavBar.loginAndForgetPassword(this);
 
         binding.assignSubjectRecyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.isApp.teacher.AssignSubjectActivity;
+import com.isApp.teacher.AssignedStudent;
 import com.isApp.teacher.Model.DashBoardModel;
 import com.isApp.teacher.Network.ApiInterface;
 import com.isApp.teacher.Network.Retrofit.RetroFitClient;
@@ -42,7 +43,7 @@ public class DashboardFragment extends Fragment {
     PreferenceManager preferenceManager;
     ImageView image;
     TextView name, applicationNumber;
-    RelativeLayout relativeLayout, assignSubjects, schedule, notes;
+    RelativeLayout relativeLayout, assignSubjects, schedule, notes, assignedStudents;
     ProgressDialog progressDialog;
 
     @Override
@@ -55,6 +56,15 @@ public class DashboardFragment extends Fragment {
         relativeLayout = view.findViewById(R.id.relativeLayoutProfile);
         assignSubjects = view.findViewById(R.id.assignSubject);
         notes = view.findViewById(R.id.notes);
+        assignedStudents = view.findViewById(R.id.assignedstudents);
+
+        assignedStudents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), AssignedStudent.class);
+                startActivity(intent);
+            }
+        });
         notes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -23,13 +23,13 @@
             android:id="@+id/assign_teacher_back_button"/>
 
         <TextView
+            android:id="@+id/performance_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/rubik"
             android:includeFontPadding="false"
-            android:text="Assined Teachers"
-            android:id="@+id/performance_text"
+            android:text="Assined Students"
             android:textColor="@color/dash_gif_blue"
             android:textSize="20sp" />
 

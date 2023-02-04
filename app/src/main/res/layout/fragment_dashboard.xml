@@ -95,6 +95,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:fontFamily="@font/rubik"
+                    android:textColor="@color/is_dark_blue"
                     android:text="Assigned Subjects"
                     />
             </RelativeLayout>
@@ -103,6 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+
                 android:id="@+id/schedule"
                 android:background="@drawable/curve_corner_less"
                 android:backgroundTint="@color/is_light_blue"
@@ -111,6 +113,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
+                    android:textColor="@color/is_dark_blue"
                     android:fontFamily="@font/rubik"
                     android:text="Schedule"
                     />
@@ -128,8 +131,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
+                    android:textColor="@color/is_dark_blue"
                     android:fontFamily="@font/rubik"
                     android:text="Notes"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:id="@+id/assignedstudents"
+                android:background="@drawable/curve_corner_less"
+                android:backgroundTint="@color/is_light_blue"
+                android:padding="10dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="@color/is_dark_blue"
+                    android:fontFamily="@font/rubik"
+                    android:text="Assigned Students"
                     />
             </RelativeLayout>
 
