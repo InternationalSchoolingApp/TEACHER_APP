@@ -6,14 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.isApp.teacher.Model.NotificationForApp;
 import com.isApp.teacher.NotificationViewActivity;
 import com.isApp.teacher.R;
-
 import java.util.List;
 
 

@@ -60,7 +60,6 @@
             android:fontFamily="@font/rubik"
             android:textSize="18sp"
             android:layout_marginHorizontal="15dp"/>
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -78,7 +77,6 @@
             android:textColor="@color/dash_gif_blue"
             android:textSize="15sp"
             android:layout_marginHorizontal="15dp"/>
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

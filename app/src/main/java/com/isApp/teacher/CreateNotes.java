@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.InputFilter;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowInsets;
@@ -46,6 +47,10 @@ public class CreateNotes extends AppCompatActivity {
         setContentView(binding.getRoot());
         preferenceManager = new PreferenceManager(this);
         progressDialog = new ProgressDialog(this);
+
+        binding.createNoteTitle.getEditText().setFilters(new InputFilter.LengthFilter[]{new InputFilter.LengthFilter(255)});
+        binding.createNoteMessage.getEditText().setFilters(new InputFilter.LengthFilter[]{new InputFilter.LengthFilter(255)});
+
         binding.createNoteBtn.setOnClickListener(v -> {
             if (validate()) {
                 saving();

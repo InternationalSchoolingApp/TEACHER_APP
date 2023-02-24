@@ -48,7 +48,6 @@ public class AssignedStudent extends AppCompatActivity {
                 }else{
                     Toast.makeText(AssignedStudent.this, "No Student Assigned", Toast.LENGTH_SHORT).show();
                 }
-
             }
             @Override
             public void onFailure(Call<AssignStudentModel> call, Throwable t) {

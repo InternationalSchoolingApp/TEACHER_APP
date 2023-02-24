@@ -46,6 +46,7 @@ public class Login extends AppCompatActivity {
         setContentView(binding.getRoot());
         ColorOfStatusAndNavBar colorOfStatusAndNavBar = new ColorOfStatusAndNavBar();
         colorOfStatusAndNavBar.colorOfStatusBar(this);
+        Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
         binding.forgetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
