@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.widget.Toast;
 import com.isApp.teacher.Adapter.NotificationAdapter;
 import com.isApp.teacher.Model.NotificationForApp;
 import com.isApp.teacher.Network.ApiInterface;
+import com.isApp.teacher.Network.NetworkChangeListener;
 import com.isApp.teacher.Network.Retrofit.RetroFitClient;
 import com.isApp.teacher.common.ColorOfStatusAndNavBar;
 import com.isApp.teacher.common.Constants;
@@ -80,4 +83,19 @@ public class Notification extends AppCompatActivity {
         finish();
 
     }
+
+    @Override
+    protected void onStart() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListner, filter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListner);
+        super.onStop();
+    }
+
+    NetworkChangeListener networkChangeListner = new NetworkChangeListener();
 }

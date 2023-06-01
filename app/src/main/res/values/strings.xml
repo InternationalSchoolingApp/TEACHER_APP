@@ -29,5 +29,7 @@
     <string name="title_activity_notes_view">NotesViewActivity</string>
     <string name="title_activity_notes">NotesActivity</string>
     <string name="title_activity_create_notes">CreateNotes</string>
+    <string name="title_activity_assigned_admin_recent_chat">AssignedAdminRecentChat</string>
+    <string name="title_activity_chat_with_admin">ChatWithAdmin</string>
 
 </resources>

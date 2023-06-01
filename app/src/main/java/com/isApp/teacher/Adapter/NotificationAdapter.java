@@ -6,16 +6,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.isApp.teacher.Model.NotificationForApp;
 import com.isApp.teacher.NotificationViewActivity;
 import com.isApp.teacher.R;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder> {
-    public List<NotificationForApp.ListForApp> list ;
+    public List<NotificationForApp.ListForApp> list;
 
     public NotificationAdapter(List<NotificationForApp.ListForApp> list) {
         this.list = list;
@@ -37,21 +41,33 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         String message = list.get(position).getMessage();
         String time = list.get(position).getCreatedDate();
 
-        holder.title.setText(list.get(position).getEntityName());
-        holder.message.setText(list.get(position).getMessage());
-        holder.time.setText(list.get(position).getCreatedDate());
-        holder.layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), NotificationViewActivity.class);
-                intent.putExtra("title", title);
-                intent.putExtra("message", message);
-                intent.putExtra("time", time);
-                v.getContext().startActivity(intent);
-            }
-        });
+        try {
+
+            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat dt1 = new SimpleDateFormat("MMM dd, yyyy hh:mm aa");
+            Date date = dt.parse(time);
+            String finalDate = dt1.format(date);
+
+            holder.title.setText(list.get(position).getEntityName());
+            holder.message.setText(list.get(position).getMessage());
+            holder.time.setText(finalDate);
 
 
+            holder.layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    Intent intent = new Intent(v.getContext(), NotificationViewActivity.class);
+                    intent.putExtra("title", title);
+                    intent.putExtra("message", message);
+                    intent.putExtra("time", finalDate);
+                    v.getContext().startActivity(intent);
+                }
+            });
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -63,6 +79,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         TextView title, message, time;
         LinearLayout layout;
+
         public NotificationViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.notification_title);

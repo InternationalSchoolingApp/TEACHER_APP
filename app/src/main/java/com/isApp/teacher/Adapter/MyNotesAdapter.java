@@ -40,6 +40,7 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.NotesVie
         String title = list.get(position).getTitle();
         String message = list.get(position).getMessage();
         String time = list.get(position).getDate();
+        String id = String.valueOf(list.get(position).getId());
         holder.title.setText(list.get(position).getTitle());
         holder.message.setText(list.get(position).getMessage());
         holder.time.setText(list.get(position).getDate());
@@ -51,6 +52,7 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.NotesVie
                 intent.putExtra("title", title);
                 intent.putExtra("message", message);
                 intent.putExtra("time", time);
+                intent.putExtra("id", id);
                 v.getContext().startActivity(intent);
             }
         });

@@ -40,8 +40,9 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="220dp"
+                android:layout_width="150dp"
                 android:layout_height="65dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="40dp"
                 android:src="@drawable/whitelogo" />
 
@@ -50,6 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="40dp"
+                android:fontFamily="@font/rubik"
                 android:includeFontPadding="false"
                 android:text="Don't Worry,"
                 android:textColor="@color/white"
@@ -60,19 +62,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:fontFamily="@font/rubik"
                 android:includeFontPadding="false"
-                android:text="Enter Mail"
+                android:text="Enter Mail to get reset link"
                 android:textColor="@color/white"
-                android:textSize="40sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:includeFontPadding="false"
-                android:text="to get reset link"
-                android:textColor="@color/white"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/forget_email_tv"
@@ -98,7 +92,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:textSize="10sp"
+                    android:textSize="14sp"
                     android:singleLine="true"
                     />
             </com.google.android.material.textfield.TextInputLayout>

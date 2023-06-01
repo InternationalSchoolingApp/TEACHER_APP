@@ -1,12 +1,14 @@
 package com.isApp.teacher;
 
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -19,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.isApp.teacher.Adapter.ChatAdapter;
 import com.isApp.teacher.Model.ChatMessage;
+import com.isApp.teacher.Network.NetworkChangeListener;
 import com.isApp.teacher.common.BaseActivity;
 import com.isApp.teacher.common.ColorOfStatusAndNavBar;
 import com.isApp.teacher.common.Constants;
@@ -54,6 +57,7 @@ public class ChatActivity extends BaseActivity {
     private ActivityChatBinding binding;
 
     private Boolean online = false;
+    private Boolean hold = false;
     private String studentName, subject, studentId, studentEmail, senderId, recieverFcmToken;
     private String conversionId = null;
 
@@ -75,6 +79,7 @@ public class ChatActivity extends BaseActivity {
         init();
         setListeners();
         listenMessage();
+
 
 
 
@@ -133,6 +138,29 @@ public class ChatActivity extends BaseActivity {
         message.put("message", binding.chatEdittext.getText().toString());
         message.put("timeStamp", new Date());
         database.collection("CHAT").add(message);
+        if(!online){
+            try{
+
+                JSONArray tokens = new JSONArray();
+                tokens.put(recieverFcmToken);
+
+                JSONObject data = new JSONObject();
+                data.put(Constants.USER_EMAIL, preferenceManager.getString(Constants.USER_EMAIL));
+                data.put(Constants.NAME, preferenceManager.getString(Constants.NAME));
+                data.put(Constants.FIREBASE_TOKEN, preferenceManager.getString(Constants.FIREBASE_TOKEN));
+                data.put(Constants.KEY_MESSAGE, binding.chatEdittext.getText().toString());
+                data.put("channel", "STUDENT_TEACHER");
+
+                JSONObject body = new JSONObject();
+                body.put(Constants.REMOTE_MESSAGE_DATA, data);
+                body.put(Constants.REGISTRATION_IDS, tokens);
+
+                sendNotification(body.toString());
+
+            }catch ( Exception exception){
+
+            }
+        }
         if (conversionId != null) {
             updateConversion(binding.chatEdittext.getText().toString());
         } else {
@@ -150,38 +178,13 @@ public class ChatActivity extends BaseActivity {
             conversion.put(Constants.KEY_LAST_MESSAGE, binding.chatEdittext.getText().toString());
             conversion.put(Constants.KEY_TIME_STAMP, new Date());
             addConversion(conversion);
-            if(!online){
-                try{
 
-                    JSONArray tokens = new JSONArray();
-                    tokens.put(recieverFcmToken);
-
-                    JSONObject data = new JSONObject();
-                    data.put(Constants.USER_EMAIL, preferenceManager.getString(Constants.USER_EMAIL));
-                    data.put(Constants.NAME, preferenceManager.getString(Constants.NAME));
-                    data.put(Constants.FIREBASE_TOKEN, preferenceManager.getString(Constants.FIREBASE_TOKEN));
-                    data.put(Constants.KEY_MESSAGE, binding.chatEdittext.getText().toString());
-
-                    JSONObject body = new JSONObject();
-                    body.put(Constants.REMOTE_MESSAGE_DATA, data);
-                    body.put(Constants.REGISTRATION_IDS, tokens);
-
-                    sendNotification(body.toString());
-
-                }catch ( Exception exception){
-                    showToast(exception.toString());
-                }
-            }
         }
         binding.chatEdittext.setText(null);
     }
 
     private void listenMessage(){
-//        if (studentFireBaseUserId != null){
-//
-//        }else{
-//            studentFireBaseUserId = studentEmail;
-//        }
+
 
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         database.collection("CHAT")
@@ -238,7 +241,7 @@ public class ChatActivity extends BaseActivity {
     private void addConversion(HashMap<String, Object> conversion) {
         CollectionReference conversation = database.collection(Constants.KEY_COLLECTIONS_CONVERSATION);
         conversation.document(""+studentEmail.toLowerCase()+" - "+preferenceManager.getString(Constants.USER_EMAIL).toLowerCase()).set(conversion).addOnSuccessListener(documentReference -> conversionId = (""+studentEmail.toLowerCase()+" - "+preferenceManager.getString(Constants.USER_EMAIL).toLowerCase())).addOnFailureListener(exception->{
-            Toast.makeText(this, "Nt updates", Toast.LENGTH_SHORT).show();
+
         });
     }
 
@@ -291,11 +294,10 @@ public class ChatActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         listenAvailabilityOfReceiver();
+        listenHoldOfChat();
     }
 
-    public void showToast(String message) {
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-    }
+
 
     private void sendNotification(String messageBody) {
 
@@ -310,25 +312,67 @@ public class ChatActivity extends BaseActivity {
                             JSONArray results = responseJson.getJSONArray("results");
                             if (responseJson.getInt("failure") == 1) {
                                 JSONObject error = (JSONObject) results.get(0);
-                                showToast(error.getString("error"));
+
                                 return;
                             }
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    showToast("Notification Sent");
+
                 } else {
-                    showToast("Error :" + response.code());
+
                 }
             }
 
 
             @Override
             public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
-                showToast(t.getMessage());
+
             }
         });
 
     }
+
+    @Override
+    protected void onStart() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListner, filter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListner);
+        super.onStop();
+    }
+
+    NetworkChangeListener networkChangeListner = new NetworkChangeListener();
+
+
+    public void listenHoldOfChat(){
+        database.collection(Constants.KEY_COLLECTIONS_CONVERSATION).document(""+studentEmail.toLowerCase()+" - "+senderId.toLowerCase()).addSnapshotListener(ChatActivity.this, ((value, error) -> {
+            if (error != null) {
+                return;
+            }
+            if (value != null) {
+                if (value.getBoolean(Constants.ON_HOLD) != null) {
+                    Boolean onhold = Objects.requireNonNull(value.getBoolean(Constants.ON_HOLD).booleanValue());
+                    if (onhold){
+                        binding.sendButtonChat.setVisibility(View.GONE);
+                        binding.chatEdittext.setVisibility(View.GONE);
+                        Toast.makeText(this, "Chat is on hold By School Admin", Toast.LENGTH_SHORT).show();
+                    }else{
+                        binding.sendButtonChat.setVisibility(View.VISIBLE);
+                        binding.chatEdittext.setVisibility(View.VISIBLE);
+                    }
+
+                }
+            }
+
+        }));
+
+        }
+
+
 }

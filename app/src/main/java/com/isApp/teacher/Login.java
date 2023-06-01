@@ -2,6 +2,9 @@ package com.isApp.teacher;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
@@ -10,6 +13,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -36,6 +41,10 @@ public class Login extends AppCompatActivity {
 
     NetworkChangeListener networkChangeListner = new NetworkChangeListener();
     private ActivityLoginBinding binding;
+
+    Dialog dialog;
+
+    ProgressDialog progressDialog;
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     PreferenceManager preferenceManager;
 
@@ -44,9 +53,13 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.username.setHintEnabled(false);
+        binding.password.setHintEnabled(false);
         ColorOfStatusAndNavBar colorOfStatusAndNavBar = new ColorOfStatusAndNavBar();
+        progressDialog = new ProgressDialog(this);
         colorOfStatusAndNavBar.colorOfStatusBar(this);
-        Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.pop_up_dialog);
         binding.forgetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +105,9 @@ public class Login extends AppCompatActivity {
     }
 
     void loginNow() {
+        progressDialog.show();
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading");
         MobileModel model = new MobileModel();
         String username = binding.username.getEditText().getText().toString().trim();
         String password = binding.password.getEditText().getText().toString().trim();
@@ -102,29 +118,35 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
-
-                if (response.isSuccessful()){
-                }
+                progressDialog.dismiss();
                 String status = response.body().getStatus();
-                Log.d("RESPONSE CHECK", "onResponse: "+ response.body());
-                if (status.equals("success")) {
-                    int userIdOnResponse = response.body().getUserId();
-                    String usermail = response.body().getUsername();
-                    int id = response.body().getPlatformId().intValue();
-                    String name = response.body().getName();
-                    Integer teacherId = response.body().getTeacherId();
-                    preferenceManager.putBoolean(Constants.USER_LOGGED, true);
-                    preferenceManager.putString(Constants.USER_EMAIL, usermail);
-                    preferenceManager.putString(Constants.PLATFORM_ID, String.valueOf(id));
-                    preferenceManager.putString(Constants.USER_ID, String.valueOf(userIdOnResponse));
-                    preferenceManager.putString(Constants.NAME, name);
-                    preferenceManager.putInt(Constants.TEACHER_ID, teacherId);
-                    registerInFirebase(usermail, name, userIdOnResponse, teacherId);
-                    saveTokenFireBase(userIdOnResponse);
-                    Intent intent = new Intent(Login.this, DashboardActivity.class);
-                    startActivity(intent);
-                    finish();
+                if (response.isSuccessful()){
+
+                    Log.d("RESPONSE CHECK", "onResponse: "+ response.body());
+                    if (status.equals("success")) {
+                        int userIdOnResponse = response.body().getUserId();
+                        String usermail = response.body().getUsername();
+                        int id = response.body().getPlatformId().intValue();
+                        String name = response.body().getName();
+                        Integer teacherId = response.body().getTeacherId();
+                        preferenceManager.putBoolean(Constants.USER_LOGGED, true);
+                        preferenceManager.putString(Constants.USER_EMAIL, usermail);
+                        preferenceManager.putString(Constants.PLATFORM_ID, String.valueOf(id));
+                        preferenceManager.putString(Constants.USER_ID, String.valueOf(userIdOnResponse));
+                        preferenceManager.putString(Constants.NAME, name);
+                        preferenceManager.putInt(Constants.TEACHER_ID, teacherId);
+                        registerInFirebase(usermail, name, userIdOnResponse, teacherId);
+                        saveTokenFireBase(userIdOnResponse);
+                        Intent intent = new Intent(Login.this, DashboardActivity.class);
+                        startActivity(intent);
+                        finish();
+
+                }else{
+                        getStatus(status);
+                    }
+
                 }
+
             }
 
             @Override
@@ -245,6 +267,45 @@ public class Login extends AppCompatActivity {
     protected void onStop() {
         unregisterReceiver(networkChangeListner);
         super.onStop();
+    }
+
+    private void getStatus(String status) {
+
+        dialog.show();
+        TextView textViewTitle, textViewMessage;
+        ImageView imageView;
+
+        textViewTitle = dialog.findViewById(R.id.popup_textView);
+        textViewMessage = dialog.findViewById(R.id.popup_message);
+        imageView = dialog.findViewById(R.id.close_popup);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        if (status.equals("failed")) {
+            textViewTitle.setText("Technical Glitch");
+            textViewMessage.setText("Sorry," + "/n there is a technical Glitch");
+        } else if (status.equals("userNotExist")) {
+            textViewTitle.setText("Not Exist");
+            textViewMessage.setText("The user you are trying to access is not Registered");
+        } else if (status.equals("underProcess")) {
+            textViewTitle.setText("Under Process");
+            textViewMessage.setText("User is under processing please go with web portal");
+        } else if (status.equals("notStudent")) {
+            textViewTitle.setText("Hey Don't Worry");
+            textViewMessage.setText("You're not a Student, But dont worry you can get access your account please download Admin and Teacher App");
+        } else if (status.equals("userDeleted")) {
+            textViewTitle.setText("User Deleted");
+            textViewMessage.setText("User you're trying to access, May be deleted or withdrawn");
+        } else if (status.equals("invalidCredentials")) {
+            textViewTitle.setText("Invalid Password");
+            textViewMessage.setText("entered in valid password please type correct password or reset");
+        } else {
+            progressDialog.dismiss();
+        }
+
     }
 
 

@@ -83,6 +83,54 @@ public class AssignStudentModel {
         @Expose
         private String grade;
 
+        @SerializedName("countryName")
+        @Expose
+        private String countryName;
+        @SerializedName("cityName")
+        @Expose
+        private String cityName;
+        @SerializedName("timeZone")
+        @Expose
+        private String timeZone;
+        @SerializedName("currentTime")
+        @Expose
+        private String currentTime;
+
+        public String getCountryName() {
+            return countryName;
+        }
+
+        public void setCountryName(String countryName) {
+            this.countryName = countryName;
+        }
+
+        public String getCityName() {
+            return cityName;
+        }
+
+        public void setCityName(String cityName) {
+            this.cityName = cityName;
+        }
+
+        public String getTimeZone() {
+            return timeZone;
+        }
+
+        public void setTimeZone(String timeZone) {
+            this.timeZone = timeZone;
+        }
+
+        public String getCurrentTime() {
+            return currentTime;
+        }
+
+        public void setCurrentTime(String currentTime) {
+            this.currentTime = currentTime;
+        }
+
+
+
+
         public String getLinkingTeacherId() {
             return linkingTeacherId;
         }

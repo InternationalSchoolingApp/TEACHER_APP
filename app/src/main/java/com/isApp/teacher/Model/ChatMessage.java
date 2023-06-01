@@ -8,5 +8,7 @@ public class ChatMessage {
     public String conversionId, conversionName;
     public String studentName, studentUserId, studentCourse, studentEmail, teacherName , teacherId, teacherEmail;
 
+    public String adminUserId, adminUserName, adminEmail;
+
 
 }

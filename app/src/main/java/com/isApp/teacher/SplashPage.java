@@ -3,6 +3,7 @@ package com.isApp.teacher;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +28,17 @@ public class SplashPage extends AppCompatActivity {
         ColorOfStatusAndNavBar colorOfStatusAndNavBar = new ColorOfStatusAndNavBar();
         colorOfStatusAndNavBar.colorOfStatusBar(this);
         preferenceManager = new PreferenceManager(getApplicationContext());
+
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        boolean areNotificationsEnabled = notificationManager.areNotificationsEnabled();
+        if (!areNotificationsEnabled) {
+            SPLASH_TIME =10000;
+            Intent intent = new Intent();
+            intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+            intent.putExtra("android.provider.extra.APP_PACKAGE", getPackageName());
+            startActivity(intent);
+        }
+
         new Handler().postDelayed(new Runnable() {
             Intent intent;
             @Override

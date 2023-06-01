@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical"
-    android:theme="@style/ThemeOverlay.TeacherApp.FullscreenContainer"
+    android:theme="@style/AppTheme"
     tools:context=".NotesViewActivity">
 
 
@@ -98,7 +98,17 @@
             android:textColor="@color/dash_gif_blue"
             android:textSize="10sp"
             android:layout_marginHorizontal="15dp"/>
-
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:text="Delete"
+            android:layout_marginTop="10dp"
+            android:id="@+id/delete"
+            android:background="@color/dash_gif_blue"
+            android:textColor="@color/white"
+            android:fontFamily="@font/rubik"
+            android:textAllCaps="false"/>
     </LinearLayout>
 
 

@@ -1,18 +1,8 @@
 package com.isApp.teacher;
 
-import android.annotation.SuppressLint;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.WindowInsets;
-
 import com.isApp.teacher.common.ColorOfStatusAndNavBar;
 import com.isApp.teacher.databinding.ActivityNotificationViewBinding;
 
@@ -45,7 +35,10 @@ public class NotificationViewActivity extends AppCompatActivity {
         binding.teacherProfileBackButton.setOnClickListener(v->onBackPressed());
 
 
+
     }
+
+
 
 
 }

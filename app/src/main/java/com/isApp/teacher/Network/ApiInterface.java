@@ -1,10 +1,13 @@
 package com.isApp.teacher.Network;
 
+import com.isApp.teacher.Model.AdminStudentMappingModel;
 import com.isApp.teacher.Model.AssignStudentModel;
 import com.isApp.teacher.Model.AssignedSubjects;
+import com.isApp.teacher.Model.CheckAssignedAdminModel;
 import com.isApp.teacher.Model.CreateMyNotes;
 import com.isApp.teacher.Model.DashBoardModel;
 import com.isApp.teacher.Model.DashboardNotificationModel;
+import com.isApp.teacher.Model.DeleteNotes;
 import com.isApp.teacher.Model.FirebaseTokenModel;
 import com.isApp.teacher.Model.ForgetPasswordModel;
 import com.isApp.teacher.Model.GetNotes;
@@ -13,6 +16,7 @@ import com.isApp.teacher.Model.LogoutModel;
 import com.isApp.teacher.Model.NotificationForApp;
 import com.isApp.teacher.Model.ProfileModel;
 import com.isApp.teacher.Model.ScheduleModel;
+import com.isApp.teacher.Model.Status;
 import com.isApp.teacher.Model.SubjectDescription;
 
 import retrofit2.Call;
@@ -63,5 +67,18 @@ public interface ApiInterface {
 
     @POST("logout-platform-App")
     Call<LogoutModel> logoutPostData(@Body LogoutModel logoutModel);
+
+    @POST("delete-notes")
+    Call<DeleteNotes> deleteNotes(@Body DeleteNotes deleteNotes);
+
+
+    @POST("student-admin-mapping-check")
+    Call<CheckAssignedAdminModel> checkAssignedAdminModel(@Body CheckAssignedAdminModel checkAssignedAdminModel);
+
+    @POST("student-admin-mapping-for-chat")
+    Call<AdminStudentMappingModel> adminStudentMappingModel(@Body AdminStudentMappingModel adminStudentMappingModel);
+
+    @POST("user-status")
+    Call<Status> getUserStatus(@Body Status appUpdationCheckModel);
 
 }

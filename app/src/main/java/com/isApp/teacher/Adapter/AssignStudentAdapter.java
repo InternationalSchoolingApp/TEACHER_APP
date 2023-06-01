@@ -14,6 +14,9 @@ import com.isApp.teacher.ChatActivity;
 import com.isApp.teacher.Model.AssignStudentModel;
 import com.isApp.teacher.R;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class AssignStudentAdapter extends RecyclerView.Adapter<AssignStudentAdapter.ViewHolderChat> {
@@ -44,10 +47,26 @@ public class AssignStudentAdapter extends RecyclerView.Adapter<AssignStudentAdap
         String subject = list.get(position).getCoursesName();
         String grade = list.get(position).getGrade();
         String email = list.get(position).getEmail();
+        String country = list.get(position).getCountryName();
+        String city = list.get(position).getCityName();
+        String currentTime = list.get(position).getCurrentTime();
+        String timeZone = list.get(position).getTimeZone();
+
+        try {
+
+            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat dt1 = new SimpleDateFormat("MMM dd, yyyy hh:mm aa");
+            Date date = dt.parse(currentTime);
+            String finalDate = dt1.format(date);
+            holder.studentSubject.setText(subject+"\n"+ "Location :"+city+" | "+country+"\n"+"Current Time : "+finalDate+"\n"+"Student TimeZone : "+timeZone);
+
+
+        }catch (Exception e){
+
+        }
 
         holder.studentName.setText(studentName);
         holder.studentGrade.setText(grade);
-        holder.studentSubject.setText(subject);
 
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,5 +99,10 @@ public class AssignStudentAdapter extends RecyclerView.Adapter<AssignStudentAdap
             linearLayout = itemView.findViewById(R.id.student_row_chat);
 
         }
+    }
+
+    public void filterList(ArrayList<AssignStudentModel.YeLo> filterlist) {
+        list = filterlist;
+        notifyDataSetChanged();
     }
 }

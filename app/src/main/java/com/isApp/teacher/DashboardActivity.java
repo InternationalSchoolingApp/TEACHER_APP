@@ -1,29 +1,25 @@
 package com.isApp.teacher;
 
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import com.isApp.teacher.Model.DashboardNotificationModel;
+import com.isApp.teacher.Model.Status;
 import com.isApp.teacher.Network.ApiInterface;
 import com.isApp.teacher.Network.NetworkChangeListener;
 import com.isApp.teacher.Network.Retrofit.RetroFitClient;
 import com.isApp.teacher.common.ColorOfStatusAndNavBar;
 import com.isApp.teacher.common.Constants;
+import com.isApp.teacher.common.LogoutDone;
 import com.isApp.teacher.databinding.ActivityDashboardBinding;
 import com.isApp.teacher.fragment.ChatFragment;
 import com.isApp.teacher.fragment.DashboardFragment;
@@ -41,20 +37,11 @@ public class DashboardActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     NetworkChangeListener networkChangeListner = new NetworkChangeListener();
     private ActivityDashboardBinding binding;
-    private FirebaseFirestore firebaseFirestore;
     private PreferenceManager preferenceManager;
 
+    long pressedTime;
 
-    private void updateFireBaseToken() {
-        DocumentReference docRef = firebaseFirestore.collection(Constants.FIREBASE_USER_DB).document(preferenceManager.getString(Constants.USER_EMAIL).toLowerCase());
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                docRef.update("firebaseToken", preferenceManager.getString(Constants.FIREBASE_TOKEN));
-            }
-        });
 
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +49,7 @@ public class DashboardActivity extends AppCompatActivity {
         ColorOfStatusAndNavBar colorOfStatusAndNavBar = new ColorOfStatusAndNavBar();
         colorOfStatusAndNavBar.dashboard(this);
         init();
-        updateFireBaseToken();
+        getStatus();
         getNotificationCount();
         binding = ActivityDashboardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -82,7 +69,6 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void init(){
-        firebaseFirestore = FirebaseFirestore.getInstance();
         preferenceManager = new PreferenceManager(this);
         progressDialog = new ProgressDialog(this);
         progressDialog.show();
@@ -156,6 +142,41 @@ public class DashboardActivity extends AppCompatActivity {
     private void changeImage(Integer i) {
         preferenceManager.putInt(Constants.COUNT, i);
         binding.notificationBtn.setImageResource(R.drawable.bellnotify);
+    }
+
+    private void getStatus() {
+
+        Integer userId = Integer.valueOf(preferenceManager.getString(Constants.USER_ID));
+        Status status = new Status(userId);
+        ApiInterface apiInterface = RetroFitClient.getRetrofit().create(ApiInterface.class);
+        Call<Status> call = apiInterface.getUserStatus(status);
+        call.enqueue(new Callback<Status>() {
+            @Override
+            public void onResponse(Call<Status> call, Response<Status> response) {
+                if (!response.body().getStatus().equals("success")){
+                    LogoutDone logoutDone = new LogoutDone();
+                    logoutDone.logout(Integer.valueOf(preferenceManager.getString(Constants.PLATFORM_ID)), userId, preferenceManager.getString(Constants.USER_EMAIL));
+                }
+            }
+            @Override
+            public void onFailure(Call<Status> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (pressedTime + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed();
+            finish();
+        } else {
+            getSupportFragmentManager().beginTransaction().replace(binding.fragmentContainer.getId(), new DashboardFragment()).commit();
+            binding.bottomNavMenu.setItemSelected(R.id.nav_dashboard, true);
+            Toast.makeText(this, "Press back again to quit", Toast.LENGTH_SHORT).show();
+        }
+        pressedTime = System.currentTimeMillis();
     }
 
 }

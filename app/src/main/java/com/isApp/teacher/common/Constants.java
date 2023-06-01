@@ -4,11 +4,14 @@ import java.util.HashMap;
 
 public class Constants {
     public static final String USER_ID = "userId";
+    public static final String ON_HOLD = "hold";
     public static final String NAME = "name";
     public static final String PLATFORM_ID = "platformId";
     public static final String TEACHER_ID = "teacherId";
     public static final String SCHOOL_ID = "schoolId";
     public static final String PREFERENCE_NAME = "isTeacherApp";
+
+    public static final String ADMIN_ID = "adminId";
     public static final String USER_LOGGED = "logged";
     public static final String FIREBASE_USER_DB = "USER_TABLE";
     public static final String FIREBASE_CHAT_DB = "CHAT";
@@ -25,7 +28,7 @@ public class Constants {
     public static final String EMAIL_FIREBASE = "fireBaseEmail";
     public static final String SSID = "ssid";
     public static final String COUNT = "countNotification";
-    public static final String KEY_COLLECTION_CHAT = "CHAT";
+    public static final String KEY_COLLECTION_CHAT_ADMIN = "CHAT_ADMIN";
     public static final String KEY_SENDER_ID = "senderId";
     public static final String KEY_RECIEVER_ID = "receiverId";
     public static final String KEY_TIME_STAMP = "timeStamp";
@@ -38,6 +41,8 @@ public class Constants {
     public static final String AUTHORIZATION="Authorization";
     public static final String KEY_TEACHER_ID="teacherId";
     public static final String KEY_STUDENT_ID="studentId";
+
+    public static final String KEY_ADMIN_ID="adminId";
     public static final String CONTENT_TYPE="Content-Type";
     public static final String REMOTE_MESSAGE_DATA="data";
     public static final String REGISTRATION_IDS="registration_ids";

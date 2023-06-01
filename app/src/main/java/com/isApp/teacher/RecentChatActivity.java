@@ -1,6 +1,8 @@
 package com.isApp.teacher;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
 import com.google.firebase.firestore.DocumentChange;
@@ -9,6 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.isApp.teacher.Adapter.RecentConversionAdapter;
 import com.isApp.teacher.Model.ChatMessage;
+import com.isApp.teacher.Network.NetworkChangeListener;
 import com.isApp.teacher.common.BaseActivity;
 import com.isApp.teacher.common.ColorOfStatusAndNavBar;
 import com.isApp.teacher.common.Constants;
@@ -124,5 +127,20 @@ public class RecentChatActivity extends BaseActivity {
 
         }
     };
+
+    @Override
+    protected void onStart() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListner, filter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListner);
+        super.onStop();
+    }
+
+    NetworkChangeListener networkChangeListner = new NetworkChangeListener();
 
 }
