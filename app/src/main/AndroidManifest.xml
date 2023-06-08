@@ -19,6 +19,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="33">
         <activity
+            android:name=".WebView"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:label="@string/title_activity_web_view"
+            android:theme="@style/AppTheme.Fullscreen" />
+        <activity
             android:name=".ChatWithAdmin"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="false"
@@ -131,7 +137,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
 
         <activity
             android:name=".Login"

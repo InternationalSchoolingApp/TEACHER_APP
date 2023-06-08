@@ -57,9 +57,22 @@ public class Login extends AppCompatActivity {
         binding.password.setHintEnabled(false);
         ColorOfStatusAndNavBar colorOfStatusAndNavBar = new ColorOfStatusAndNavBar();
         progressDialog = new ProgressDialog(this);
-        colorOfStatusAndNavBar.colorOfStatusBar(this);
+        colorOfStatusAndNavBar.loginAndForgetPassword(this);
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.pop_up_dialog);
+
+
+        binding.privacy.setOnClickListener(v->{
+            Intent intent = new Intent(v.getContext(), WebView.class);
+            intent.putExtra("url", "https://internationalschooling.org/privacy-policy-android/");
+            startActivity(intent);
+        });
+
+        binding.termsOfUse.setOnClickListener(v->{
+            Intent intent = new Intent(v.getContext(), WebView.class);
+            intent.putExtra("url", "https://internationalschooling.org/terms-of-use-android/");
+            startActivity(intent);
+        });
         binding.forgetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,6 +112,10 @@ public class Login extends AppCompatActivity {
             }
 
         });
+
+
+
+
         binding.loginBtn.setOnClickListener(v -> {
             checking();
         });

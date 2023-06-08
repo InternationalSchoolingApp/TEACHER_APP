@@ -45,7 +45,7 @@ public class Forget extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
 
         ColorOfStatusAndNavBar colorOfStatusAndNavBar = new ColorOfStatusAndNavBar();
-        colorOfStatusAndNavBar.colorOfStatusBar(this);
+        colorOfStatusAndNavBar.loginAndForgetPassword(this);
 
         String email="";
         Bundle extra = getIntent().getExtras();

@@ -31,5 +31,6 @@
     <string name="title_activity_create_notes">CreateNotes</string>
     <string name="title_activity_assigned_admin_recent_chat">AssignedAdminRecentChat</string>
     <string name="title_activity_chat_with_admin">ChatWithAdmin</string>
+    <string name="title_activity_web_view">WebView</string>
 
 </resources>

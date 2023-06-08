@@ -23,21 +23,23 @@ public class SplashPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        boolean areNotificationsEnabled = notificationManager.areNotificationsEnabled();
+        if (!areNotificationsEnabled) {
+            SPLASH_TIME =15000;
+            Intent intent = new Intent();
+            intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+            intent.putExtra("android.provider.extra.APP_PACKAGE", getPackageName());
+            startActivity(intent);
+        }
+
         binding = ActivitySplashPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         ColorOfStatusAndNavBar colorOfStatusAndNavBar = new ColorOfStatusAndNavBar();
         colorOfStatusAndNavBar.colorOfStatusBar(this);
         preferenceManager = new PreferenceManager(getApplicationContext());
 
-        NotificationManager notificationManager = getSystemService(NotificationManager.class);
-        boolean areNotificationsEnabled = notificationManager.areNotificationsEnabled();
-        if (!areNotificationsEnabled) {
-            SPLASH_TIME =10000;
-            Intent intent = new Intent();
-            intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
-            intent.putExtra("android.provider.extra.APP_PACKAGE", getPackageName());
-            startActivity(intent);
-        }
+
 
         new Handler().postDelayed(new Runnable() {
             Intent intent;
