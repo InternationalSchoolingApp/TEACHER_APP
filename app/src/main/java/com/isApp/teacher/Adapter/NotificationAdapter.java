@@ -40,6 +40,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         String title = list.get(position).getEntityName();
         String message = list.get(position).getMessage();
         String time = list.get(position).getCreatedDate();
+        Integer id = list.get(position).getId();
+        Integer userId = list.get(position).getUserId();
 
         try {
 
@@ -62,6 +64,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                     intent.putExtra("title", title);
                     intent.putExtra("message", message);
                     intent.putExtra("time", finalDate);
+                    intent.putExtra("id", id);
+                    intent.putExtra("userId", userId);
                     v.getContext().startActivity(intent);
                 }
             });

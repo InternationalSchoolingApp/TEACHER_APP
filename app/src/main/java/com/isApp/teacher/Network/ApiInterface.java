@@ -14,6 +14,7 @@ import com.isApp.teacher.Model.GetNotes;
 import com.isApp.teacher.Model.LoginModel;
 import com.isApp.teacher.Model.LogoutModel;
 import com.isApp.teacher.Model.NotificationForApp;
+import com.isApp.teacher.Model.NotificationLog;
 import com.isApp.teacher.Model.ProfileModel;
 import com.isApp.teacher.Model.ScheduleModel;
 import com.isApp.teacher.Model.Status;
@@ -80,5 +81,8 @@ public interface ApiInterface {
 
     @POST("user-status")
     Call<Status> getUserStatus(@Body Status appUpdationCheckModel);
+
+    @POST("update-notification-log")
+    Call<NotificationLog> getUpdateNotification(@Body NotificationLog notificationLog);
 
 }
