@@ -7,7 +7,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetroFitClient {
     private static Retrofit retrofit = null;
-    private static final String BaseUrl = "http://164.52.198.42:9090/lead-api/";
+
+    // UAT
+    //private static final String BaseUrl = "http://164.52.198.42:9090/lead-api/";
+
+    // Live
+    private static final String BaseUrl = "http://54.156.196.80:8080/lead-api/";
 
     static OkHttpClient okHttpClient = new OkHttpClient.Builder()
             .connectTimeout(60, TimeUnit.SECONDS)
