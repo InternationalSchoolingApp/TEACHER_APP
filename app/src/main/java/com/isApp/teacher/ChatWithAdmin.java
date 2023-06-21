@@ -79,15 +79,18 @@ public class ChatWithAdmin extends AppCompatActivity {
 
 
 
-        Log.d("results", "onCreate: " + adminUserId + " " + adminEmail + " " + adminName );
+
 
         binding.chatScreenStudentName.setText("School Admin");
 
         init();
         getAdmin();
+
+
+
         setListeners();
-        listenMessage();
-        listenAvailabilityOfReceiver();
+
+
 
 
     }
@@ -107,7 +110,11 @@ public class ChatWithAdmin extends AppCompatActivity {
                     adminName = response.body().getAdminName();
                     adminUserId = String.valueOf(response.body().getAdminId());
                     adminEmail = response.body().getAdminEmail();
+                    Log.d("ADMIN", "onResponse: "+ adminEmail);
                     progressDialog.dismiss();
+
+                    listenAvailabilityOfReceiver();
+                    listenMessage();
 
                 }
             }
@@ -220,7 +227,9 @@ public class ChatWithAdmin extends AppCompatActivity {
     }
 
     private void listenAvailabilityOfReceiver() {
+        Log.d("CHECKING FCM", "listenAvailabilityOfReceiver: " + adminEmail);
         database.collection(Constants.FIREBASE_USER_DB).document(""+adminEmail).addSnapshotListener(ChatWithAdmin.this, ((value, error) -> {
+
             if (error != null) {
                 return;
             }
@@ -288,6 +297,9 @@ public class ChatWithAdmin extends AppCompatActivity {
 
     private void listenMessage(){
 
+
+        Log.d("ADMIN", "listenMessage: " + adminEmail);
+        Log.d("TEACHER", "listenMessage: " + senderId);
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         database.collection(Constants.KEY_COLLECTION_CHAT_ADMIN)
                 .whereEqualTo("senderId", senderId)

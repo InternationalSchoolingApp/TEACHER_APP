@@ -113,7 +113,7 @@ public class DashboardFragment extends Fragment {
                         applicationNumber.setText(response.body().getApplicationNumber());
                         String url = response.body().getPictureLink();
                         url.replace("sch/", "sch/thumb_");
-                        Glide.with(getContext()).load(url).into(image);
+                        Glide.with(view).load(url).into(image);
                         Log.d("RESPONSE DASHBOARD", "response :" + response.body().getfName().toString());
                     }
 
