@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -156,11 +157,15 @@ public class DashboardActivity extends AppCompatActivity {
                 if (!response.body().getStatus().equals("success")){
                     LogoutDone logoutDone = new LogoutDone();
                     logoutDone.logout(Integer.valueOf(preferenceManager.getString(Constants.PLATFORM_ID)), userId, preferenceManager.getString(Constants.USER_EMAIL));
+                    Intent intent = new Intent(DashboardActivity.this, Login.class);
+                    preferenceManager.clear();
+                    startActivity(intent);
+                    finish();
                 }
             }
             @Override
             public void onFailure(Call<Status> call, Throwable t) {
-
+                Log.d("CHECKING STATUS", "onFailure: " + t+ call.toString());
             }
         });
 
