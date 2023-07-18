@@ -173,12 +173,12 @@ public class ChatActivity extends BaseActivity {
             conversion.put("teacherEmail", senderId);
             conversion.put("studentEmail", studentEmail.toLowerCase());
             conversion.put("studentName", studentName);
+            conversion.put("teacherName", preferenceManager.getString(Constants.NAME));
             conversion.put(Constants.KEY_SUBJECT_NAME, subject);
             conversion.put(Constants.KEY_TEACHER_ID, String.valueOf(preferenceManager.getInt(Constants.TEACHER_ID)));
             conversion.put(Constants.KEY_LAST_MESSAGE, binding.chatEdittext.getText().toString());
             conversion.put(Constants.KEY_TIME_STAMP, new Date());
             addConversion(conversion);
-
         }
         binding.chatEdittext.setText(null);
     }
