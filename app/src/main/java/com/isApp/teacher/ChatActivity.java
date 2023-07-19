@@ -73,7 +73,7 @@ public class ChatActivity extends BaseActivity {
             studentId = extra.getString("studentId");
             studentName = extra.getString("studentName");
             subject = extra.getString("subject");
-            studentEmail = extra.getString("email");
+            studentEmail = extra.getString("email").toLowerCase();
             Log.d("VALUES", "onCreate: "+studentId+", "+studentName+", "+subject+", "+studentEmail);
         }
         init();
@@ -89,7 +89,7 @@ public class ChatActivity extends BaseActivity {
     void init(){
 
         preferenceManager = new PreferenceManager(getApplicationContext());
-        senderId = preferenceManager.getString(Constants.USER_ID_FIREBASE);
+        senderId = preferenceManager.getString(Constants.USER_ID_FIREBASE).toLowerCase();
 //        studentFireBaseUserId =  getTeacherFirebaseUserId(studentEmail);
         binding.chatScreenStudentName.setText(studentName);
         binding.chatStudentSubjectName.setText(subject);
@@ -137,6 +137,8 @@ public class ChatActivity extends BaseActivity {
         message.put("receiverId", studentEmail);
         message.put("message", binding.chatEdittext.getText().toString());
         message.put("timeStamp", new Date());
+        message.put("teacherEmail", senderId);
+        message.put("studentEmail", studentEmail);
         database.collection("CHAT").add(message);
         if(!online){
             try{
