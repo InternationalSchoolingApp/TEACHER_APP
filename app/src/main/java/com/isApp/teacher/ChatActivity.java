@@ -145,18 +145,15 @@ public class ChatActivity extends BaseActivity {
 
                 JSONArray tokens = new JSONArray();
                 tokens.put(recieverFcmToken);
-
                 JSONObject data = new JSONObject();
                 data.put(Constants.USER_EMAIL, preferenceManager.getString(Constants.USER_EMAIL));
                 data.put(Constants.NAME, preferenceManager.getString(Constants.NAME));
                 data.put(Constants.FIREBASE_TOKEN, preferenceManager.getString(Constants.FIREBASE_TOKEN));
                 data.put(Constants.KEY_MESSAGE, binding.chatEdittext.getText().toString());
                 data.put("channel", "STUDENT_TEACHER");
-
                 JSONObject body = new JSONObject();
                 body.put(Constants.REMOTE_MESSAGE_DATA, data);
                 body.put(Constants.REGISTRATION_IDS, tokens);
-
                 sendNotification(body.toString());
 
             }catch ( Exception exception){
